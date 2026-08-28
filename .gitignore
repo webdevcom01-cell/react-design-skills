@@ -1,0 +1,8 @@
+# Full reference clones used during research/verification — not part of the plugin,
+# and too large to track (1.3GB+). Kept locally for provenance, not pushed to GitHub.
+_research/
+
+# Transfer artifact from initial setup
+react-design-bundle.tar.gz
+
+.DS_Store
