@@ -1,7 +1,7 @@
 {
   "name": "react-design",
-  "description": "Design-decision skills for React projects using Ant Design or DaisyUI: library selection, token themes, motion, and design QA.",
-  "version": "0.2.0",
+  "description": "Design-decision skills for React projects using Ant Design or DaisyUI: library selection, token themes, product-UI motion, premium showcase motion (GSAP/Lenis scroll choreography and hero/text reveals), and design QA.",
+  "version": "0.3.0",
   "author": {
     "name": "buky",
     "email": "webdevcom01@gmail.com"
