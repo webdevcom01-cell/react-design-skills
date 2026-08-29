@@ -2,9 +2,9 @@
 name: director
 description: Route a React design task through the right skills in the right order — read the project brief, pick the component library, sequence the token layer before screens, pull in Storybook, Penpot, tldraw, and motion only when they actually apply, and run a design and accessibility gate before calling the work done. Use at the start of any React or Next.js design or UI task where the approach is not already decided; whenever someone describes a project and asks how to build the UI, where to start, what stack to use, or what the plan is; whenever several design concerns collide in one request (library plus theme plus animation plus canvas); and whenever a UI task needs a final quality check before shipping. Also covers Serbian phrasings - odakle da krenem, koji je plan, sta mi treba za ovaj projekat, napravi UI za, dizajniraj aplikaciju, vodi me kroz proces, zavrsni pregled dizajna. Do NOT use when the user has already named the specific concern - go straight to that skill instead.
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
   owner: "buky <webdevcom01@gmail.com>"
-  verified_against: "the six sibling skills in this plugin at their stated versions — component-library-advisor@0.1.0, penpot-workflow@0.1.0, storybook-workflow@0.1.0, tldraw-workflow@0.1.0, icon-resources@0.1.0, motion-principles@0.1.0. No external source; routing logic is composed from those skills' own Step 1 decision rules (2026-08-23); spot-checked 2026-08-25 — AntD motion duration tokens (0.1/0.2/0.3s) and DaisyUI's 35 stock themes with exact light/dark primary oklch values in qa-gate.md all confirmed against live package source"
+  verified_against: "the eight sibling skills in this plugin at their stated versions — component-library-advisor@0.1.0, penpot-workflow@0.1.0, storybook-workflow@0.1.0, tldraw-workflow@0.1.0, icon-resources@0.1.0, motion-principles@0.1.0, scroll-choreography@0.1.0, showcase-motion@0.1.0. No external source; routing logic is composed from those skills' own Step 1 decision rules (2026-08-23, extended 2026-08-29 for the two new siblings); spot-checked 2026-08-25 — AntD motion duration tokens (0.1/0.2/0.3s) and DaisyUI's 35 stock themes with exact light/dark primary oklch values in qa-gate.md all confirmed against live package source; 2026-08-29 — corrected the Step 6 QA-gate dependency claim, which had asserted design:design-critique/design:accessibility-review are permanently absent from any local CLI install, a claim independently found false in the session that added the two new skills (both were present as loaded plugin skills)"
 ---
 
 # Director
@@ -80,14 +80,16 @@ things gets two passes, not a blend.
 |---|---|---|
 | Admin panel, internal tool, CRUD dashboard, data-dense app | **Ant Design** | motion-principles, icon-resources |
 | Marketing site, landing page, docs, content product | **DaisyUI** (requires Tailwind) | motion-principles, icon-resources |
+| Premium/showcase marketing site, portfolio, case-study or campaign site — the motion itself is part of the pitch | **Neither** — Tailwind + headless primitives, not DaisyUI | **scroll-choreography**, **showcase-motion**, icon-resources |
 | Reusable component library or design system package | Depends on consumers — see below | **storybook-workflow**, motion-principles, icon-resources |
 | Small set of highly custom surfaces | **Neither** — Tailwind + headless primitives | motion-principles, icon-resources |
 | Nothing written yet, structure still unclear | Defer the library | **tldraw-workflow** (Path A), **penpot-workflow** |
 | Existing design file, designer in the loop, brand tokens exist | Follow the lane above | **penpot-workflow** (tokens are the source) |
 | Canvas / whiteboard / diagram feature | Follow the lane above | **tldraw-workflow** — after Step 2 |
+| Any brief with pinned/scrubbed sections, smooth scroll, or a hero/text-reveal centerpiece | Follow the library lane above | **scroll-choreography** and/or **showcase-motion**, in place of or alongside motion-principles — see the rule below |
 | Reviewing a UI that already exists | No install | Step 6 QA gate, then targeted skills for what it finds |
 
-Two routing rules that are easy to get wrong:
+Three routing rules that are easy to get wrong:
 
 - **A component library package does not automatically mean Ant Design or DaisyUI.** Ask who
   consumes it. If the consuming apps are data-dense internal tools, a thin wrapper layer over
@@ -98,6 +100,18 @@ Two routing rules that are easy to get wrong:
 - **DaisyUI is gated on Tailwind, and the major versions are locked together.** Tailwind v4
   → DaisyUI 5; Tailwind v3 → DaisyUI 4. If the project has no Tailwind, adding it is a real
   cost to name out loud, not a footnote. `component-library-advisor` Step 3 has the gate.
+- **"Marketing site" is not automatically the DaisyUI lane.** If the brief signals heavy,
+  considered motion as part of the product itself — "premium," "brutal animations,"
+  awwwards-style, a portfolio or campaign site where the entrance and scroll experience *are*
+  the pitch, not decoration on top of it — DaisyUI's ready-made components fight
+  `showcase-motion`'s custom magnetic buttons, tilt states, and `SplitText`-masked headings at
+  every turn, the same way a shared component library fights a base library's opinions above.
+  Route that brief to Tailwind plus headless primitives instead, and load
+  `scroll-choreography` and `showcase-motion` in place of `motion-principles` — both skills
+  state clearly in their own Step 1 that they apply to this brief and not to product UI. A
+  standard marketing or content site without that signal stays on the DaisyUI lane with
+  `motion-principles`' lighter reveal rules; don't over-route a business site into GSAP
+  choreography it doesn't need.
 
 Never load `storybook-workflow` for a landing page or a single admin screen. That skill's own
 Step 1 says the useful answer there is "you don't need this yet," and routing it in anyway
@@ -144,24 +158,28 @@ flag their absence as incomplete setup.
   timing.** Screens contain no hex values, no arbitrary pixel values, and no inline
   durations.
 
-## Step 6 — The QA gate, and its missing dependency
+## Step 6 — The QA gate, and its optional dependency
 
 **Read this before relying on the gate.**
 
 The architecture calls for two skills at the end: `design:design-critique` and
-`design:accessibility-review`. **Neither exists in this local CLI installation.** They are
-available in the Cowork / claude.ai environment only. Nothing in this plugin provides them,
-and invoking them here fails.
+`design:accessibility-review`. Their availability is **not a fixed property of "local CLI vs.
+Cowork"** — it depends on which plugins and marketplaces are enabled in the current
+installation, which varies per user and per session. Neither is bundled by this plugin, so
+never assume either one is present; check the actually-available skill list every time rather
+than trusting a remembered answer from a previous session, this file's own past revisions, or
+general assumptions about what "a local CLI install" has. A claim about tool availability that
+isn't re-checked against the current environment is exactly the kind of stale fact this whole
+plugin's `verified_against` discipline exists to prevent.
 
 So the gate has two forms, and you must state which one ran.
 
-**If `design:design-critique` and `design:accessibility-review` are available** (Cowork /
-claude.ai): invoke both, in that order, and resolve what they raise before declaring the
-task complete.
+**If `design:design-critique` and `design:accessibility-review` are listed as available**:
+invoke both, in that order, and resolve what they raise before declaring the task complete.
 
-**If they are not available** (this local CLI, today): say so explicitly rather than skipping
-silently, then run the manual gate below. A task that reports "done" without one of these two
-paths having run has not been checked.
+**If they are not listed as available**: say so explicitly rather than skipping silently, then
+run the manual gate below. A task that reports "done" without one of these two paths having
+run has not been checked.
 
 ### Manual design critique — fallback criteria
 

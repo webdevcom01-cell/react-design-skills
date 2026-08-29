@@ -9,9 +9,11 @@ The architecture specifies two skills at this stage:
 - `design:design-critique`
 - `design:accessibility-review`
 
-**Neither is present in this local CLI installation.** They exist in the Cowork / claude.ai
-environment only. Nothing in the `react-design` plugin provides them, no sibling skill
-implements them, and invoking them from a local CLI session fails.
+Their availability is **not fixed by "local CLI vs. Cowork"** — it depends on which plugins
+and marketplaces the current installation has enabled, which varies per user and per session.
+Nothing in the `react-design` plugin provides them, and no sibling skill implements them, so
+never assume either one is present or absent from a remembered answer — check the current
+environment's actual skill list each time.
 
 This is a documented external dependency, not a bug to work around silently. The rule:
 
@@ -32,8 +34,8 @@ be presented as if they do.
 ## How to run the manual gate
 
 Every item below has a **check** line: the specific action that produces a pass or fail.
-Follow it rather than forming an impression — an impression is what the two missing skills
-were there to replace.
+Follow it rather than forming an impression — an impression is what
+`design:design-critique`/`design:accessibility-review` are there to replace when available.
 
 **Run the app first.** Most of these checks read the *rendered* UI, not the source. Source
 grep is used only where the failure is genuinely a code artifact (hardcoded values, icon

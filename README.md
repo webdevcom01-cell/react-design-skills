@@ -15,7 +15,9 @@ to be invoked by name.
 | `penpot-workflow` | Uses Penpot as the single source of truth for design tokens, exported and compiled into the Ant Design / DaisyUI theme. |
 | `tldraw-workflow` | Establishes tldraw's licensing status (source-available, not open source) before any canvas/whiteboard feature is built. |
 | `icon-resources` | Sources brand marks (Simple Icons) and UI glyphs correctly, with the trademark distinction most projects get wrong. |
-| `motion-principles` | Adds animation with Motion (formerly Framer Motion) — a duration/easing token layer, `prefers-reduced-motion` handled correctly, and subtlety rules. |
+| `motion-principles` | Adds animation with Motion (formerly Framer Motion) for product UI — a duration/easing token layer, `prefers-reduced-motion` handled correctly, and subtlety rules calibrated for restraint. |
+| `scroll-choreography` | Wires scroll-linked animation and smooth scroll — Lenis vs. GSAP ScrollSmoother, native CSS scroll-driven animations vs. ScrollTrigger vs. Motion's `useScroll`, pinning/scrubbing, Observer, and the View Transitions API. |
+| `showcase-motion` | Choreographs hero entrances, GSAP `SplitText` reveals, and magnetic/cursor interactions for marketing and showcase sites — deliberately bigger motion than `motion-principles`, with its own taste ceiling. |
 
 ## Verification
 

@@ -1,6 +1,6 @@
 ---
 name: motion-principles
-description: Add animation to a React project with Motion (formerly Framer Motion) in a way that survives review — the correct package and import path, a duration/easing token layer instead of scattered magic numbers, prefers-reduced-motion handled properly, and subtlety rules that keep an interface from reading as a toy. Use whenever animation, transitions, motion, Framer Motion, motion.dev, AnimatePresence, layout animations, scroll-triggered reveals, hover/tap feedback, page transitions, stagger, springs, or easing come up; whenever a UI feels static, abrupt, janky, or conversely over-animated; and whenever prefers-reduced-motion or animation accessibility is raised. Also covers Serbian phrasings - animacija, animacije, tranzicija, prelaz izmedju stranica, pokret, easing, trajanje animacije, previse animacija, deluje staticno, hover efekat. Do NOT use for choosing or theming a component library (component-library-advisor), Storybook setup (storybook-workflow), or canvas/whiteboard interaction work (tldraw-workflow).
+description: Add animation to a React project with Motion (formerly Framer Motion) — correct import path, a duration/easing token layer instead of magic numbers, prefers-reduced-motion handled properly, and subtlety rules that keep an interface from reading as a toy. Use whenever animation, transitions, motion, Framer Motion, motion.dev, AnimatePresence, layout animations, scroll reveals via Motion's viewport prop, hover/tap feedback, page transitions, stagger, springs, or easing come up; whenever a UI feels static, abrupt, janky, or over-animated; and whenever prefers-reduced-motion or animation accessibility is raised. Also covers Serbian phrasings - animacija, tranzicija, prelaz izmedju stranica, pokret, easing, trajanje animacije, deluje staticno. Do NOT use for a component library (component-library-advisor), Storybook (storybook-workflow), canvas/whiteboard work (tldraw-workflow), scroll mechanics (scroll-choreography), or a showcase hero's bigger entrance choreography (showcase-motion).
 metadata:
   version: "0.1.0"
   owner: "buky <webdevcom01@gmail.com>"
@@ -81,6 +81,13 @@ Every animation must answer one of three questions. If it answers none, delete i
 fades in on load answers nothing — the user asked for the page, and the page arriving is not
 news. Scroll-triggered reveals on every section are the most common example of decoration
 sold as design: they delay content the user is actively trying to read.
+
+**This purpose test is calibrated for product UI**, where the interface supports a task the
+user is already trying to do. A marketing or showcase site's hero is a different brief — the
+entrance itself is part of what's being communicated, not an obstacle in front of a task —
+and runs under `showcase-motion`'s rules instead, not this section's. Confirm which brief is
+actually in front of you (`director` Step 1, or `showcase-motion` Step 1) before applying
+this rule to a hero section; applying it unconditionally is itself a mistake.
 
 The reverse is also a bug. If a modal appears with no transition, continuity is broken and
 the user has to re-orient. Motion earns its place exactly where a state change would
